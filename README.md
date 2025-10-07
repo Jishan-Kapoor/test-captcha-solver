@@ -1,7 +1,7 @@
 # Captcha Solver Web Application
 
 ## Summary
-This static web application allows users to solve captchas by providing an image URL as a query parameter. By default, it handles the sample image provided. The updated version now includes the ability to handle SVG images and also displays a counter of solved captchas.
+This static web application allows users to solve captchas by providing an image URL as a query parameter. By default, it handles the sample image provided. The updated version now includes the ability to handle SVG images, displays a counter of solved captchas, and loads sample CSV data for testing purposes.
 
 ## Setup
 To deploy this application on GitHub Pages, follow these steps:
@@ -19,9 +19,10 @@ To deploy this application on GitHub Pages, follow these steps:
   - **Image preview**: Displays the captcha image for verification.
   - **SVG image support**: Now supports solving captchas in SVG format.
   - **Solved captchas counter**: A counter is displayed to track the number of captchas solved.
+  - **Sample CSV data**: Sample CSV data is loaded for testing purposes.
 
 ## Code Explanation
-This web application is built using HTML and JavaScript. It utilizes the provided URL of the captcha image in the query parameter to solve the captcha. The key logic revolves around processing the image and finding the necessary solution. The added features for handling SVG images and displaying a solved captchas counter are implemented in JavaScript.
+This web application is built using HTML and JavaScript. It utilizes the provided URL of the captcha image in the query parameter to solve the captcha. The key logic revolves around processing the image and finding the necessary solution. The added features for handling SVG images, displaying a solved captchas counter, and loading sample CSV data are implemented in JavaScript.
 
 Key libraries: None used.
 

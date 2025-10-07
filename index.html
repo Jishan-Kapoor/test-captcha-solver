@@ -16,12 +16,18 @@
         <h1>Captcha Solver</h1>
         <div id="captchaImage"></div>
         <p><strong>Solved Captcha:</strong> <span id="captchaText"></span></p>
+        <p><strong>Solved Captchas Counter:</strong> <span id="solvedCounter">0</span></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked@3.0.0/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/build/highlight.min.js"></script>
     <script>
         // Add your JavaScript code here
+        let solvedCaptchaCounter = 0;
+
+        function updateSolvedCounter() {
+            document.getElementById('solvedCounter').textContent = ++solvedCaptchaCounter;
+        }
 
         function solveCaptcha(imageUrl) {
             fetch(imageUrl)
@@ -36,6 +42,7 @@
                             const endTime = performance.now();
                             const elapsedTime = (endTime - startTime) / 1000;
                             document.getElementById('captchaText').innerText = data;
+                            updateSolvedCounter();
                             console.log(`Solved in ${elapsedTime} seconds`);
                         })
                         .catch(error => console.error(error));

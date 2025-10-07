@@ -17,6 +17,7 @@
         <div id="captchaImage"></div>
         <p><strong>Solved Captcha:</strong> <span id="captchaText"></span></p>
         <p><strong>Solved Captchas Counter:</strong> <span id="solvedCounter">0</span></p>
+        <p><strong>Total Sum:</strong> <span id="totalSum"></span></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked@3.0.0/marked.min.js"></script>
@@ -44,10 +45,42 @@
                             document.getElementById('captchaText').innerText = data;
                             updateSolvedCounter();
                             console.log(`Solved in ${elapsedTime} seconds`);
+
+                            // Parsing CSV data
+                            const sum = processData(data);
+                            if (sum !== null) {
+                                document.getElementById('totalSum').innerText = sum;
+                            } else {
+                                console.error('Error processing CSV data');
+                            }
                         })
                         .catch(error => console.error(error));
                 })
                 .catch(error => console.error(error));
+        }
+
+        function processData(data) {
+            const lines = data.trim().split('\n');
+            let totalSum = 0;
+
+            for (let line of lines) {
+                const values = line.split(',');
+                let lineSum = 0;
+
+                for (let val of values) {
+                    const parsedVal = parseFloat(val.trim());
+                    if (!isNaN(parsedVal)) {
+                        lineSum += parsedVal;
+                    } else {
+                        console.error('Invalid number found:', val);
+                        return null;
+                    }
+                }
+
+                totalSum += lineSum;
+            }
+
+            return totalSum;
         }
 
         const urlParams = new URLSearchParams(window.location.search);

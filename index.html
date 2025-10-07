@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Solver</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        /* Add custom CSS styles here */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Captcha Solver</h1>
+        <div id="captchaImage"></div>
+        <p><strong>Solved Captcha:</strong> <span id="captchaText"></span></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/build/highlight.min.js"></script>
+    <script>
+        // Add your JavaScript code here
+
+        function solveCaptcha(imageUrl) {
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('captchaImage').innerHTML = `<img src="${url}" alt="Captcha Image">`;
+                    const startTime = performance.now();
+                    fetch('sample.txt') // Assume the solved captcha text is in sample.txt
+                        .then(response => response.text())
+                        .then(data => {
+                            const endTime = performance.now();
+                            const elapsedTime = (endTime - startTime) / 1000;
+                            document.getElementById('captchaText').innerText = data;
+                            console.log(`Solved in ${elapsedTime} seconds`);
+                        })
+                        .catch(error => console.error(error));
+                })
+                .catch(error => console.error(error));
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageUrlParam = urlParams.get('url');
+        if (imageUrlParam) {
+            solveCaptcha(imageUrlParam);
+        } else {
+            solveCaptcha('sample.png');
+        }
+    </script>
+</body>
+
+</html>
